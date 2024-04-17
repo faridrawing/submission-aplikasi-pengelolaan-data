@@ -1,0 +1,38 @@
+:root {
+  /* --basic-transition: all .25s linear; */
+  --color-1: #322C2B;
+  --color-2: #803D3B;
+  --color-3: #AF8260;
+  --color-4: #E4C59E;
+}
+
+/* CSS Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* General Style */
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: var(--color-4);
+  color: #FFF;
+}
+
+.container {
+  max-width: 75rem;
+  margin: auto;
+  padding: 1rem;
+}
+
+/* Header */
+header {
+  background-color: var(--color-1);
+  display: flex;
+}
+
+header .logo {
+  font-weight: 500;
+  user-select: none;
+}
