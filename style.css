@@ -5,6 +5,7 @@
   --color-3: #AF8260;
   --color-4: #E4C59E;
   --basic-border-radius: .25rem;
+  --basic-transition: all .125s linear;
 }
 
 /* CSS Reset */
@@ -17,13 +18,13 @@
 /* General Style */
 body {
   background-color: var(--color-4);
-  color: var(--color-1);
 }
 
 body,
 input,
 button {
   font-family: "Poppins", sans-serif;
+  color: var(--color-1);
 }
 
 .container {
@@ -42,6 +43,8 @@ header .logo {
   color: #FFF;
   font-weight: 500;
   user-select: none;
+  display: flex;
+  align-items: center;
 }
 
 /* Main Style */
@@ -60,6 +63,7 @@ main {
   color: #FFF;
   background-color: var(--color-2);
   border-bottom: .1rem solid var(--color-1);
+  user-select: none;
 }
 
 .title-bar>* {
@@ -77,10 +81,22 @@ main {
 }
 
 /* Input Style */
+.input-group {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-size: .75rem;
+  font-weight: 500;
+}
+
 input,
 button {
   outline: none;
   border: none;
+  outline: .225rem solid transparent;
+  transition: var(--basic-transition);
 }
 
 input {
@@ -98,4 +114,16 @@ button {
   color: #FFF;
   justify-content: center;
   cursor: pointer;
+}
+
+input:focus {
+  outline-color: rgba(228, 196, 158, .5);
+}
+
+button:hover {
+  background-color: hsl(26, 33%, 43%);
+}
+
+button:focus {
+  outline-color: rgba(175, 130, 96, .5);
 }

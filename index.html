@@ -8,11 +8,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
   </head>
   <body>
     <header>
       <div class="container">
-        <h3 class="logo">Bookshelf Apps Farid</h3>
+        <h3 class="logo"><span class="material-symbols-outlined"> book_2 </span>&nbsp;Bookshelf Apps Farid</h3>
       </div>
     </header>
     <main>
@@ -23,14 +24,24 @@
           </div>
           <div class="content-bar">
             <form>
-              <input type="text" id="title" name="title" placeholder="Book Title" />
-              <input type="text" id="author" name="author" placeholder="Book Author" />
-              <input type="number" id="year" name="year" placeholder="Release Year" />
+              <div class="input-group">
+                <label for="title">Book Title</label>
+                <input type="text" id="title" name="title" required autofocus />
+              </div>
+              <div class="input-group">
+                <label for="author">Book Author</label>
+                <input type="text" id="author" name="author" required />
+              </div>
+              <div class="input-group">
+                <label for="year">Release Year</label>
+                <input type="number" id="year" name="year" required />
+              </div>
               <button type="submit">Add Book to The Shelf</button>
             </form>
           </div>
         </div>
       </div>
     </main>
+    <script src="script.js"></script>
   </body>
 </html>
