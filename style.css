@@ -134,3 +134,23 @@ button:hover {
 button:focus {
   outline-color: rgba(175, 130, 96, .5);
 }
+
+/* Toast */
+.toast {
+  position: fixed;
+  bottom: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--color-1);
+  color: white;
+  padding: 15px 30px;
+  border-radius: 8px;
+  opacity: 0;
+  transition: opacity 0.3s ease, bottom 0.5s ease;
+  z-index: 9999;
+}
+
+.toast.show {
+  bottom: 30px;
+  opacity: 1;
+}

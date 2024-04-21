@@ -27,7 +27,18 @@ authorInput.value = "Muhammad Sumbul";
 yearInput.value = "2021";
 isCompletedInput.checked = true;
 
-insertForm.addEventListener("submit", (event) => {
+// Calling The Functions
+insertForm.addEventListener("submit", insertBook);
+
+// Functions
+// Insert Funcion
+function insertBook(event) {
+  event.preventDefault();
+  const insertForm = document.querySelector("#insert-book form");
+  const titleInput = insertForm.querySelector("#title");
+  const authorInput = insertForm.querySelector("#author");
+  const yearInput = insertForm.querySelector("#year");
+  const isCompletedInput = insertForm.querySelector("#already-read");
   const book = {
     id: +new Date(),
     title: titleInput.value,
@@ -39,19 +50,17 @@ insertForm.addEventListener("submit", (event) => {
   authorInput.value = "";
   yearInput.value = "";
   isCompletedInput.checked = false;
-
-  const pushAbleBooks = JSON.parse(localStorage.getItem("books")) || [];
-  pushAbleBooks.push(book);
-  localStorage.setItem("books", JSON.stringify(pushAbleBooks));
+  const existingBooks = JSON.parse(localStorage.getItem("books")) || [];
+  existingBooks.push(book);
+  localStorage.setItem("books", JSON.stringify(existingBooks));
   console.log(JSON.parse(localStorage.getItem("books")));
+  showToast("Book inserted!");
+}
 
-  event.preventDefault();
-  showToast("Insert");
-});
-
-// Functions
-function showToast(action) {
+// Toast Function
+function showToast(message) {
   const toast = document.getElementById("toast");
+  toast.innerText = message;
   toast.classList.add("show");
   setTimeout(() => {
     toast.classList.remove("show");
