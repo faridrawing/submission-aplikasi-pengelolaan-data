@@ -13,7 +13,7 @@
   <body>
     <header>
       <div class="container">
-        <h3 class="logo"><span class="material-symbols-outlined"> book_2 </span>&nbsp;Bookshelf Apps Farid</h3>
+        <h3 class="logo">Bookshelf Apps Farid</h3>
       </div>
     </header>
     <main>
@@ -23,7 +23,7 @@
             <h4>Enter New Book</h4>
           </div>
           <div class="content-bar">
-            <form>
+            <form method="post">
               <div class="input-group">
                 <label for="title">Book Title</label>
                 <input type="text" id="title" name="title" required autofocus />
@@ -36,12 +36,16 @@
                 <label for="year">Release Year</label>
                 <input type="number" id="year" name="year" required />
               </div>
+              <div class="input-group">
+                <div><label for="already-read">Already Read</label><input type="checkbox" id="already-read" name="already-read" /></div>
+              </div>
               <button type="submit">Add Book to The Shelf</button>
             </form>
           </div>
         </div>
       </div>
     </main>
+    <div id="toast" class="toast"></div>
     <script src="script.js"></script>
   </body>
 </html>

@@ -42,9 +42,6 @@ header {
 header .logo {
   color: #FFF;
   font-weight: 500;
-  user-select: none;
-  display: flex;
-  align-items: center;
 }
 
 /* Main Style */
@@ -63,7 +60,6 @@ main {
   color: #FFF;
   background-color: var(--color-2);
   border-bottom: .1rem solid var(--color-1);
-  user-select: none;
 }
 
 .title-bar>* {
@@ -84,6 +80,12 @@ main {
 .input-group {
   display: flex;
   flex-direction: column;
+}
+
+.input-group div {
+  display: flex;
+  gap: .5rem;
+  align-items: center;
 }
 
 label {
@@ -118,6 +120,11 @@ button {
 
 input:focus {
   outline-color: rgba(228, 196, 158, .5);
+}
+
+input[type="checkbox"] {
+  width: 1rem;
+  height: 1rem;
 }
 
 button:hover {
