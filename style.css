@@ -1,11 +1,11 @@
 :root {
   /* --basic-transition: all .25s linear; */
-  --color-1: #322C2B;
-  --color-2: #803D3B;
-  --color-3: #AF8260;
-  --color-4: #E4C59E;
-  --basic-border-radius: .25rem;
-  --basic-transition: all .125s linear;
+  --color-1: #322c2b;
+  --color-2: #803d3b;
+  --color-3: #af8260;
+  --color-4: #e4c59e;
+  --basic-border-radius: 0.25rem;
+  --basic-transition: all 0.125s linear;
 }
 
 /* CSS Reset */
@@ -34,7 +34,7 @@ header {
 }
 
 header .logo {
-  color: #FFF;
+  color: #fff;
   font-weight: 500;
 }
 
@@ -52,27 +52,26 @@ main {
   flex-direction: column;
 }
 
-
 .window {
-  border: .1rem solid var(--color-1);
+  border: 0.1rem solid var(--color-1);
   border-radius: var(--basic-border-radius);
   overflow: hidden;
 }
 
 .title-bar {
   padding: 1rem;
-  color: #FFF;
+  color: #fff;
   background-color: var(--color-2);
-  border-bottom: .1rem solid var(--color-1);
+  border-bottom: 0.1rem solid var(--color-1);
 }
 
-.title-bar>* {
+.title-bar > * {
   font-weight: 500;
 }
 
 .content-bar {
   padding: 1rem;
-  background-color: #FFF;
+  background-color: #fff;
 }
 
 .content-bar form {
@@ -88,12 +87,12 @@ main {
 
 .input-group div {
   display: flex;
-  gap: .5rem;
+  gap: 0.5rem;
   align-items: center;
 }
 
 label {
-  font-size: .75rem;
+  font-size: 0.75rem;
   font-weight: 500;
 }
 
@@ -101,30 +100,30 @@ input,
 button {
   outline: none;
   border: none;
-  outline: .225rem solid transparent;
+  outline: 0.225rem solid transparent;
   transition: var(--basic-transition);
 }
 
 input {
-  border: .1rem solid var(--color-4);
-  padding: .5rem;
+  border: 0.1rem solid var(--color-4);
+  padding: 0.5rem;
   border-radius: var(--basic-border-radius);
 }
 
 button {
-  padding: .5rem;
+  padding: 0.5rem;
   display: flex;
   width: 100%;
   background-color: var(--color-3);
   border-radius: var(--basic-border-radius);
-  color: #FFF;
+  color: #fff;
   justify-content: center;
   cursor: pointer;
 }
 
 input:focus,
 input[type="checkbox"]:hover {
-  outline-color: rgba(228, 196, 158, .5);
+  outline-color: rgba(228, 196, 158, 0.5);
 }
 
 input[type="checkbox"] {
@@ -132,12 +131,18 @@ input[type="checkbox"] {
   height: 1rem;
 }
 
-button:hover {
+button:hover,
+button:focus {
   background-color: hsl(26, 33%, 43%);
 }
 
 button:focus {
-  outline-color: rgba(175, 130, 96, .5);
+  outline-color: rgba(175, 130, 96, 0.5);
+}
+
+/* List Style */
+#list-book table {
+  border: 1px solid red;
 }
 
 /* Toast */
