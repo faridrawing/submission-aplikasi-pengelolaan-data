@@ -15,6 +15,8 @@ const authorInput = insertForm.querySelector("#author");
 const yearInput = insertForm.querySelector("#year");
 const isCompletedInput = insertForm.querySelector("#already-read");
 const listBook = document.querySelector("#list-book");
+const incompletedList = listBook.querySelector(".incompleted-list .books");
+const completedList = listBook.querySelector(".completed-list .books");
 
 // Init
 document.addEventListener("DOMContentLoaded", () => {
@@ -56,31 +58,35 @@ function insertBook(event) {
   const existingBooks = JSON.parse(localStorage.getItem("books")) || [];
   existingBooks.push(book);
   localStorage.setItem("books", JSON.stringify(existingBooks));
-  console.log(JSON.parse(localStorage.getItem("books")));
+  renderBook(existingBooks);
   showToast("Book inserted!");
 }
 
 // Render Function
 function renderBook(books) {
-  const completedList = listBook.querySelector(".completed-list tbody");
-  const incompletedList = listBook.querySelector(".incompleted-list tbody");
   completedList.innerHTML = "";
   incompletedList.innerHTML = "";
-  let completedIndex = 0;
-  let incompletedIndex = 0;
   books.forEach((book) => {
-    const bookItem = document.createElement("tr");
-    bookItem.innerHTML = `
-      <td>${book.isCompleted ? ++completedIndex : ++incompletedIndex}</td>
-      <td>${book.title}</td>
-      <td>${book.author}</td>
-      <td>${book.year}</td>
-      <td>${book.isCompleted ? "Completed" : "Mark as completed"}</td>
+    const bookContainer = document.createElement("div");
+    bookContainer.classList.add("book")
+    bookContainer.innerHTML = `
+      <div>
+        <span>${book.title} (${book.year})</span>
+        <span>
+          <span class="button delete-button">
+            <span class="material-symbols-outlined">delete</span>
+          </span>
+          <span class="button action-button">
+            <span class="material-symbols-outlined">${book.isCompleted ? "close" : "done"}</span>
+          </span>
+        </span>
+      </div>
+      <span>Author: ${book.author}</span>
     `;
     if (book.isCompleted) {
-      completedList.appendChild(bookItem);
+      completedList.appendChild(bookContainer);
     } else {
-      incompletedList.appendChild(bookItem);
+      incompletedList.appendChild(bookContainer);
     }
   });
 }
