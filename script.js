@@ -9,6 +9,14 @@
 //   });
 // });
 
+// {
+//   id: string | number,
+//   title: string,
+//   author: string,
+//   year: number,
+//   isComplete: boolean,
+// }
+
 const insertForm = document.querySelector("#insert-book form");
 const titleInput = insertForm.querySelector("#title");
 const authorInput = insertForm.querySelector("#author");
@@ -20,9 +28,9 @@ const completedList = listBook.querySelector(".completed-list .books");
 
 // Init
 document.addEventListener("DOMContentLoaded", () => {
-  const books = JSON.parse(localStorage.getItem("books"));
-  renderBook(books);
-  console.log(books);
+  const books = JSON.parse(localStorage.getItem("books")) || [];
+  renderBook();
+  // console.log(books);
 });
 
 // Insert Form
@@ -58,30 +66,43 @@ function insertBook(event) {
   const existingBooks = JSON.parse(localStorage.getItem("books")) || [];
   existingBooks.push(book);
   localStorage.setItem("books", JSON.stringify(existingBooks));
-  renderBook(existingBooks);
+  renderBook();
   showToast("Book inserted!");
 }
 
 // Render Function
-function renderBook(books) {
-  completedList.innerHTML = "";
+function renderBook() {
+  const books = JSON.parse(localStorage.getItem("books")) || [];
+  const incompletedBooks = books.filter((book) => !book.isCompleted);
+  const completedBooks = books.filter((book) => book.isCompleted);
   incompletedList.innerHTML = "";
+  completedList.innerHTML = "";
+  if (incompletedBooks.length <= 0) {
+    incompletedList.innerHTML = `<div class="book message">No incompleted books. Please add or mark a book!</div>`;
+  }
+  if (completedBooks.length <= 0) {
+    completedList.innerHTML = `<div class="book message">No completed books. Please add or mark a book!</div>`;
+  }
   books.forEach((book) => {
     const bookContainer = document.createElement("div");
-    bookContainer.classList.add("book")
+    bookContainer.classList.add("book");
     bookContainer.innerHTML = `
-      <div>
-        <span>${book.title} (${book.year})</span>
-        <span>
-          <span class="button delete-button">
-            <span class="material-symbols-outlined">delete</span>
-          </span>
-          <span class="button action-button">
-            <span class="material-symbols-outlined">${book.isCompleted ? "close" : "done"}</span>
-          </span>
-        </span>
+      <div class="book-info">
+        <span
+          >${book.title} (${book.year})</span
+        >
+        <span>Author: ${book.author}</span>
       </div>
-      <span>Author: ${book.author}</span>
+      <span class="button-wrapper">
+        <span class="button delete-button">
+          <span class="material-symbols-outlined">delete</span>
+        </span>
+        <span class="button action-button">
+          <span class="material-symbols-outlined" onclick="updateBook(${
+            book.id
+          })">${book.isCompleted ? "close" : "done"}</span>
+        </span>
+      </span>
     `;
     if (book.isCompleted) {
       completedList.appendChild(bookContainer);
@@ -90,6 +111,12 @@ function renderBook(books) {
     }
   });
 }
+
+// Update Function
+// function updateBook(bookId) {
+//   const books = JSON.parse(localStorage.getItem("books"));
+//   alert(bookId);
+// }
 
 // Toast Function
 function showToast(message) {
