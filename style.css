@@ -74,7 +74,7 @@ main {
   border-bottom: 0.1rem solid var(--color-1);
 }
 
-.title-bar > * {
+.title-bar>* {
   font-weight: 500;
 }
 
@@ -213,7 +213,7 @@ button:focus {
   transition: var(--basic-transition);
 }
 
-.list .button > span {
+.list .button>span {
   font-size: 1rem;
   cursor: pointer;
 }
@@ -232,6 +232,14 @@ button:focus {
 
 .list .action-button:hover {
   background-color: hsl(26, 33%, 43%);
+}
+
+.list .close-button {
+  background-color: hsl(0, 64%, 62%);
+}
+
+.list .close-button:hover {
+  background-color: hsl(0, 44%, 42%);
 }
 
 /* Toast */
