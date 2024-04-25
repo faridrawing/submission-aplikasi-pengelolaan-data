@@ -1,14 +1,3 @@
-// const inputs = document.getElementsByTagName("input");
-// [...inputs].forEach((input) => {
-//   input.addEventListener("input", () => {
-//     if (input.value.trim() === "") {
-//       input.classList.remove("placeholder-on");
-//     } else {
-//       input.classList.add("placeholder-on");
-//     }
-//   });
-// });
-
 // {
 //   id: string | number,
 //   title: string,
@@ -97,10 +86,8 @@ function renderBook() {
         <span class="button delete-button">
           <span class="material-symbols-outlined">delete</span>
         </span>
-        <span class="button action-button">
-          <span class="material-symbols-outlined" onclick="updateBook(${
-            book.id
-          })">${book.isCompleted ? "close" : "done"}</span>
+        <span class="button action-button ${book.isCompleted ? "close-button" : ""}" onclick="updateBook(${book.id})">
+          <span class="material-symbols-outlined">${book.isCompleted ? "close" : "done"}</span>
         </span>
       </span>
     `;
@@ -113,17 +100,24 @@ function renderBook() {
 }
 
 // Update Function
-// function updateBook(bookId) {
-//   const books = JSON.parse(localStorage.getItem("books"));
-//   alert(bookId);
-// }
+function updateBook(bookId) {
+  const books = JSON.parse(localStorage.getItem("books"));
+  const bookIndex = books.findIndex((book) => book.id === bookId);
+  books[bookIndex].isCompleted = !books[bookIndex].isCompleted;
+  localStorage.setItem("books", JSON.stringify(books));
+  renderBook();
+  showToast("Book updated!");
+}
 
 // Toast Function
+let toastTimeout;
+
 function showToast(message) {
   const toast = document.getElementById("toast");
   toast.innerText = message;
   toast.classList.add("show");
-  setTimeout(() => {
+  if (toastTimeout) clearTimeout(toastTimeout);
+  toastTimeout = setTimeout(() => {
     toast.classList.remove("show");
-  }, 3000);
+  }, 1500);
 }
