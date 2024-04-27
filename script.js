@@ -2,7 +2,7 @@ const insertForm = document.querySelector("#insert-book form");
 const titleInput = insertForm.querySelector("#title");
 const authorInput = insertForm.querySelector("#author");
 const yearInput = insertForm.querySelector("#year");
-const isCompletedInput = insertForm.querySelector("#already-read");
+const isCompleteInput = insertForm.querySelector("#already-read");
 const listBook = document.querySelector("#list-book");
 const incompletedList = listBook.querySelector(".incompleted-list .books");
 const completedList = listBook.querySelector(".completed-list .books");
@@ -22,18 +22,18 @@ function insertBook(event) {
   const titleInput = insertForm.querySelector("#title");
   const authorInput = insertForm.querySelector("#author");
   const yearInput = insertForm.querySelector("#year");
-  const isCompletedInput = insertForm.querySelector("#already-read");
+  const isCompleteInput = insertForm.querySelector("#already-read");
   const book = {
     id: +new Date(),
     title: titleInput.value,
     author: authorInput.value,
     year: parseInt(yearInput.value),
-    isCompleted: isCompletedInput.checked,
+    isComplete: isCompleteInput.checked,
   };
   titleInput.value = "";
   authorInput.value = "";
   yearInput.value = "";
-  isCompletedInput.checked = false;
+  isCompleteInput.checked = false;
   const existingBooks = JSON.parse(localStorage.getItem("books")) || [];
   existingBooks.push(book);
   localStorage.setItem("books", JSON.stringify(existingBooks));
@@ -42,8 +42,8 @@ function insertBook(event) {
 }
 
 function renderBook(books) {
-  const incompletedBooks = books.filter((book) => !book.isCompleted);
-  const completedBooks = books.filter((book) => book.isCompleted);
+  const incompletedBooks = books.filter((book) => !book.isComplete);
+  const completedBooks = books.filter((book) => book.isComplete);
   incompletedList.innerHTML = "";
   completedList.innerHTML = "";
   if (incompletedBooks.length <= 0) {
@@ -76,15 +76,15 @@ function renderBook(books) {
           <span class="material-symbols-outlined">delete</span>
         </span>
         <span class="button action-button ${
-          book.isCompleted ? "close-button" : ""
+          book.isComplete ? "close-button" : ""
         }" onclick="updateBook(${book.id})">
           <span class="material-symbols-outlined">${
-            book.isCompleted ? "close" : "done"
+            book.isComplete ? "close" : "done"
           }</span>
         </span>
       </span>
     `;
-    if (book.isCompleted) {
+    if (book.isComplete) {
       completedList.appendChild(bookContainer);
     } else {
       incompletedList.appendChild(bookContainer);
@@ -95,7 +95,7 @@ function renderBook(books) {
 function updateBook(bookId) {
   const books = JSON.parse(localStorage.getItem("books"));
   const bookIndex = books.findIndex((book) => book.id === bookId);
-  books[bookIndex].isCompleted = !books[bookIndex].isCompleted;
+  books[bookIndex].isComplete = !books[bookIndex].isComplete;
   localStorage.setItem("books", JSON.stringify(books));
   renderBook(books);
   showToast("Book updated!");
