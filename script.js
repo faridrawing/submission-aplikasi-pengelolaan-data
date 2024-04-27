@@ -27,7 +27,7 @@ function insertBook(event) {
     id: +new Date(),
     title: titleInput.value,
     author: authorInput.value,
-    year: yearInput.value,
+    year: parseInt(yearInput.value),
     isCompleted: isCompletedInput.checked,
   };
   titleInput.value = "";
@@ -47,10 +47,10 @@ function renderBook(books) {
   incompletedList.innerHTML = "";
   completedList.innerHTML = "";
   if (incompletedBooks.length <= 0) {
-    incompletedList.innerHTML = `<div class="book message">No incompleted books. Please add or mark a book!</div>`;
+    incompletedList.innerHTML = `<div class="book message">No incompleted books!</div>`;
   }
   if (completedBooks.length <= 0) {
-    completedList.innerHTML = `<div class="book message">No completed books. Please add or mark a book!</div>`;
+    completedList.innerHTML = `<div class="book message">No completed books!</div>`;
   }
   books.forEach((book) => {
     const bookContainer = document.createElement("div");
