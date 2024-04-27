@@ -1,11 +1,3 @@
-// {
-//   id: string | number,
-//   title: string,
-//   author: string,
-//   year: number,
-//   isComplete: boolean,
-// }
-
 const insertForm = document.querySelector("#insert-book form");
 const titleInput = insertForm.querySelector("#title");
 const authorInput = insertForm.querySelector("#author");
@@ -14,26 +6,21 @@ const isCompletedInput = insertForm.querySelector("#already-read");
 const listBook = document.querySelector("#list-book");
 const incompletedList = listBook.querySelector(".incompleted-list .books");
 const completedList = listBook.querySelector(".completed-list .books");
+const searchBar = document.querySelector("#search-bar input");
 
-// Init
 document.addEventListener("DOMContentLoaded", () => {
   const books = JSON.parse(localStorage.getItem("books")) || [];
-  renderBook();
-  // console.log(books);
+  renderBook(books);
 });
 
-// Insert Form
-// Insert Form Test
 titleInput.value = "Pemrograman Berorientasi Objek dengan PHP";
 authorInput.value = "Muhammad Sumbul";
 yearInput.value = "2021";
 isCompletedInput.checked = true;
 
-// Calling The Functions
 insertForm.addEventListener("submit", insertBook);
+searchBar.addEventListener("input", searchBook);
 
-// Functions
-// Insert Function
 function insertBook(event) {
   event.preventDefault();
   const insertForm = document.querySelector("#insert-book form");
@@ -55,13 +42,11 @@ function insertBook(event) {
   const existingBooks = JSON.parse(localStorage.getItem("books")) || [];
   existingBooks.push(book);
   localStorage.setItem("books", JSON.stringify(existingBooks));
-  renderBook();
+  renderBook(existingBooks);
   showToast("Book inserted!");
 }
 
-// Render Function
-function renderBook() {
-  const books = JSON.parse(localStorage.getItem("books")) || [];
+function renderBook(books) {
   const incompletedBooks = books.filter((book) => !book.isCompleted);
   const completedBooks = books.filter((book) => book.isCompleted);
   incompletedList.innerHTML = "";
@@ -83,11 +68,24 @@ function renderBook() {
         <span>Author: ${book.author}</span>
       </div>
       <span class="button-wrapper">
-        <span class="button delete-button">
+        <span class="button cancel-button cancel-button-${
+          book.id
+        }" onclick="cancelDeleteBook(${
+      book.id
+    })" style="transform: translateX(1.625rem);">
+          <span class="material-symbols-outlined">close</span>
+        </span>
+        <span class="button delete-button delete-button-${
+          book.id
+        }" onclick="comfirmDeleteBook(${book.id})">
           <span class="material-symbols-outlined">delete</span>
         </span>
-        <span class="button action-button ${book.isCompleted ? "close-button" : ""}" onclick="updateBook(${book.id})">
-          <span class="material-symbols-outlined">${book.isCompleted ? "close" : "done"}</span>
+        <span class="button action-button ${
+          book.isCompleted ? "close-button" : ""
+        }" onclick="updateBook(${book.id})">
+          <span class="material-symbols-outlined">${
+            book.isCompleted ? "close" : "done"
+          }</span>
         </span>
       </span>
     `;
@@ -99,19 +97,56 @@ function renderBook() {
   });
 }
 
-// Update Function
 function updateBook(bookId) {
   const books = JSON.parse(localStorage.getItem("books"));
   const bookIndex = books.findIndex((book) => book.id === bookId);
   books[bookIndex].isCompleted = !books[bookIndex].isCompleted;
   localStorage.setItem("books", JSON.stringify(books));
-  renderBook();
+  renderBook(books);
   showToast("Book updated!");
 }
 
-// Toast Function
-let toastTimeout;
+function comfirmDeleteBook(bookId) {
+  const deleteButton = document.querySelector(`.delete-button-${bookId}`);
+  const cancelButton = document.querySelector(`.cancel-button-${bookId}`);
+  deleteButton.classList.add("confirm-delete");
+  deleteButton.removeAttribute("onclick");
+  deleteButton.setAttribute("onclick", `deleteBook(${bookId})`);
+  cancelButton.style.transform = "translateX(0)";
+}
 
+function cancelDeleteBook(bookId) {
+  const deleteButton = document.querySelector(`.delete-button-${bookId}`);
+  const cancelButton = document.querySelector(`.cancel-button-${bookId}`);
+  deleteButton.classList.remove("confirm-delete");
+  deleteButton.removeAttribute("onclick");
+  deleteButton.setAttribute("onclick", `comfirmDeleteBook(${bookId})`);
+  cancelButton.style.transform = "translateX(1.625rem)";
+}
+
+function deleteBook(bookId) {
+  const books = JSON.parse(localStorage.getItem("books"));
+  const bookIndex = books.findIndex((book) => book.id === bookId);
+  books.splice(bookIndex, 1);
+  localStorage.setItem("books", JSON.stringify(books));
+  renderBook(books);
+  showToast("Book deleted!");
+}
+
+function searchBook() {
+  const books = JSON.parse(localStorage.getItem("books")) || [];
+  const keyword = searchBar.value.toLowerCase();
+  const filteredBooks = books.filter((book) => {
+    return (
+      book.title.toLowerCase().includes(keyword) ||
+      book.author.toLowerCase().includes(keyword) ||
+      book.year.toString().includes(keyword)
+    );
+  });
+  renderBook(filteredBooks);
+}
+
+let toastTimeout;
 function showToast(message) {
   const toast = document.getElementById("toast");
   toast.innerText = message;
