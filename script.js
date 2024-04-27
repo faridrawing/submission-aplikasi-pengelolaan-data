@@ -13,11 +13,6 @@ document.addEventListener("DOMContentLoaded", () => {
   renderBook(books);
 });
 
-titleInput.value = "Pemrograman Berorientasi Objek dengan PHP";
-authorInput.value = "Muhammad Sumbul";
-yearInput.value = "2021";
-isCompletedInput.checked = true;
-
 insertForm.addEventListener("submit", insertBook);
 searchBar.addEventListener("input", searchBook);
 
